@@ -1,13 +1,17 @@
 import 'dotenv/config'
-dotenv.config({ path: '.env' })
 import express from 'express';
 import workoutRoutes from './routes/routes.js';
 
 const app = express();  
 const PORT = 3000;
 
+// Middleware
 app.use(express.json());
-app.use('/', workoutRoutes);
+app.use((req, res, next) => {
+  console.log(req.method, req.url);
+  next();
+});
+app.use('/api/workouts', workoutRoutes);
 
 app.get('/', (req, res) => {  
   res.send('Hello World!');
