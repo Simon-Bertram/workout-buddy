@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import express from 'express';
+import express, { json } from 'express';
 import mongoose from 'mongoose';
 import workoutRoutes from './routes/routes.js';
 
