@@ -21,7 +21,7 @@ const Home = () => {
     }
 
     fetchWorkouts()
-  }, [])
+  }, [dispatch])
 
   return ( 
     <div className="home grid grid-cols-4 gap-24">
