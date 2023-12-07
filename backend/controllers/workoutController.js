@@ -35,6 +35,16 @@ const getWorkout = async (req, res) => {
 // Create a new workout document
 const createWorkout = async (req, res) => {
   const { title, reps, weight } = req.body;
+
+  let emptyFields = [];
+
+  if (!title) emptyFields.push('title');
+  if (!reps) emptyFields.push('reps');
+  if (!weight) emptyFields.push('weight');
+
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: `Please fill in all the fields`, emptyFields });
+  }
   
   // Add doc to MongoDB
   try {

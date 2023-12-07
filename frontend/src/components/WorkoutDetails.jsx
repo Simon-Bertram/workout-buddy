@@ -23,10 +23,13 @@ const WorkoutDetails = ({ workout }) => {
       <p className="text-gray-600">{workout.createdAt}</p>
       <button 
         onClick={handleDelete}
-        className="btn absolute top-5 right-5 cursor-pointer text-white bg-red-400"
+        className="btn absolute top-5 right-5 flex items-center py-3 cursor-pointer text-white bg-red-400"
       >
-        Delete
+        <span class="material-symbols-outlined">
+          delete
+        </span>
       </button>
+      
     </div>
    );
 }
