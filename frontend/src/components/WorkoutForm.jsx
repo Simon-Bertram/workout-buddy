@@ -37,7 +37,7 @@ const WorkoutForm = () => {
   }
 
   return ( 
-    <div className="workout-form">
+    <div className="workout-form mr-5">
       <form onSubmit={handleSubmit}>
         <h3 className="text-xl font-bold mb-3">Add a New Workout</h3>
         

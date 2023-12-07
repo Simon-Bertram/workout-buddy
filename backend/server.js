@@ -2,7 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express, { json } from 'express';
 import mongoose from 'mongoose';
-import workoutRoutes from './routes/routes.js';
+import workoutRoutes from './routes/workoutRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 console.log(process.env.NODE_ENV);
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/workouts', workoutRoutes);
+app.use('/api/users', userRoutes);
 
 // Connect to MongoDB
 const uri = process.env.MONGO_URI;
