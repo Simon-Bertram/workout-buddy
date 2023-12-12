@@ -1,4 +1,5 @@
 import User from "../models/userModel.js"
+import validator from "validator";
 
 // Login user
 // POST /api/users/login
@@ -13,14 +14,18 @@ const loginUser = (req, res) => {
 const registerUser = async (req, res) => {
   const { email, password } = req.body
   
-  if (!email) {
-    console.log('Missing email property in request body')
-    return res.status(400).json({error: 'Missing email property in request body'})
+  // Validation
+  if (!email || !password) {
+    res.status(400);
+    throw new Error('All fields must be filled');
   }
-  
-  if (!password) {
-    console.log('Missing password property in request body')
-    return res.status(400).json({error: 'Missing password property in request body'})
+  if (!validator.isEmail(email)) {
+    res.status(400);
+    throw new Error('Invalid email');
+  }
+  if (!validator.isStrongPassword(password)) {
+    res.status(400);
+    throw new Error('Password must be at least 8 characters long, contain a lowercase, uppercase, number, and symbol');
   }
 
   // Check if user already exists
