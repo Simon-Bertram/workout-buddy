@@ -4,22 +4,17 @@ import {
   registerUser,
   getUserProfile,
 } from '../controllers/userController.js'
+import { get } from "mongoose";
 
 const router = express.Router();
 
 // Login route
-router.post("/login", (req, res) => {
-  res.send("Login Route");
-});
+router.post("/login", loginUser);
 
 // Sign-up route
-router.post("/register", (req, res) => {
-  res.send("Register Route");
-});
+router.post("/register", registerUser);
 
 // Profile route
-router.get("/profile", (req, res) => {
-  res.send("Profile Route");
-});
+router.get("/profile", getUserProfile);
 
 export default router;

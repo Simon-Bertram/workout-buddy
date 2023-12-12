@@ -4,6 +4,7 @@ import express, { json } from 'express';
 import mongoose from 'mongoose';
 import workoutRoutes from './routes/workoutRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import bodyParser from 'body-parser';
 
 console.log(process.env.NODE_ENV);
 
@@ -12,6 +13,7 @@ const PORT = 3000;
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
@@ -23,7 +25,6 @@ app.use('/api/users', userRoutes);
 
 // Connect to MongoDB
 const uri = process.env.MONGO_URI;
-console.log(uri);
 
 mongoose.connect(uri)
   .then(() => {
