@@ -1,5 +1,10 @@
 import User from "../models/userModel.js"
+import jwt from "jsonwebtoken";
 import validator from "validator";
+
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "3d" })
+}
 
 // Login user
 // POST /api/users/login
@@ -8,7 +13,7 @@ const loginUser = (req, res) => {
   const { email, password } = req.body
 }
 
-// Register user
+// Register a new user
 // POST /api/users/register
 // Public
 const registerUser = async (req, res) => {
@@ -45,10 +50,13 @@ const registerUser = async (req, res) => {
 
     // If user is created, send back user data
     if (user) {
+      // Create token
+      const token = createToken(user._id);
+
       res.status(201).json({
         _id: user._id,
         email: user.email,
-        password: user.password,
+        token
       });
     } else {
       res.status(400);
