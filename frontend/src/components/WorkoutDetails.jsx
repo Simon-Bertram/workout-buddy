@@ -35,7 +35,7 @@ const WorkoutDetails = ({ workout }) => {
         onClick={handleDelete}
         className="btn absolute top-5 right-5 flex items-center py-3 cursor-pointer text-white bg-red-400"
       >
-        <span class="material-symbols-outlined">
+        <span className="material-symbols-outlined">
           delete
         </span>
       </button>

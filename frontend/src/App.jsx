@@ -4,6 +4,8 @@ import './App.css'
 // Pages and components
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
+import Login from './pages/Login'
+import RegisterUser from './pages/RegisterUser'
 
 function App() {
 
@@ -13,7 +15,9 @@ function App() {
         <Navbar />
         <div className="pages container mx-auto p-5">
           <Routes>
-            <Route path='/' element={<Home />} />  
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} /> 
+            <Route path='/register' element={<RegisterUser />} />   
           </Routes>        
         </div>
       </BrowserRouter>      
