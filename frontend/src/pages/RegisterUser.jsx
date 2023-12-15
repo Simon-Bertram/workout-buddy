@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useRegisterUser } from "../hooks/useRegisterUser";
 
 const RegisterUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { register, error, isLoading } = useRegisterUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log('email: ', email, 'password: ', password)
+    await register(email, password)
   }
 
   return ( 
@@ -31,7 +33,8 @@ const RegisterUser = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="btn bg-primary text-white mt-4" type="submit">Register</button>
+      <button disabled={isLoading} className="btn bg-primary text-white mt-4" type="submit">Register</button>
+      {error && <div className="text-red-500">{error}</div>}
     </form>
    );
 }
