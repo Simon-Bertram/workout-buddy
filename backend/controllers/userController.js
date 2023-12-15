@@ -9,8 +9,35 @@ const createToken = (id) => {
 // Login user
 // POST /api/users/login
 // Public
-const loginUser = (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body
+
+  // Validation
+  if (!email || !password) {
+    return res.status(401).json({ error: "Invalid email or password" });
+  }
+
+  try {
+    const user = await User.login(email, password);
+
+    // create a token
+    const token = createToken(user._id);
+
+    res.status(200).json({ email, token });
+
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+
+  // Check if user exists
+  const user = await User.findOne({ email });
+
+  // 
+  if (!user) {
+    return res.status(401).json({ error: "Invalid email or password" });
+  }
+
+
 }
 
 // Register a new user
@@ -21,24 +48,20 @@ const registerUser = async (req, res) => {
   
   // Validation
   if (!email || !password) {
-    res.status(400);
-    throw new Error('All fields must be filled');
+    return res.status(400).json({error: "All fields must be filled"});
   }
   if (!validator.isEmail(email)) {
-    res.status(400);
-    throw new Error('Invalid email');
+    return res.status(400).json({error: "Invalid email"});
   }
   if (!validator.isStrongPassword(password)) {
-    res.status(400);
-    throw new Error('Password must be at least 8 characters long, contain a lowercase, uppercase, number, and symbol');
+    return res.status(400).json({error: "Password must be at least 8 characters long and contain at least 1 lowercase, 1 uppercase, 1 number, and 1 symbol"});
   }
 
   // Check if user already exists
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error('User already exists');
+    return res.status(400).json({error: "User already exists"});
   }
 
   try {
