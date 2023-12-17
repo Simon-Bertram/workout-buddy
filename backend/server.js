@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import workoutRoutes from './routes/workoutRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 console.log(process.env.NODE_ENV);
 
@@ -12,6 +13,7 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
