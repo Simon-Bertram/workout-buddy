@@ -5,7 +5,7 @@ const Navbar = () => {
   const { logout } = useLogout()
 
   const handleLogout = () => {
-    
+    logout()
   }
 
   return ( 
