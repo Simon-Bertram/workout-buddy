@@ -1,14 +1,25 @@
-import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 // date fns
 import { formatDistanceToNow, parseISO, parse } from 'date-fns'
 
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutsContext()
+  const { user } = useAuthContext()
 
   const handleDelete = async () => {
+
+    if (!user) {
+      setError('You must be logged in to delete a workout')
+      return
+    }
+
     const response = await fetch('http://localhost:3000/api/workouts/' + workout._id, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
     })
     const data = await response.json()
 
