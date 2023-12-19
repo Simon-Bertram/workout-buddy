@@ -22,6 +22,7 @@ const useLogin = () => {
     if (!response.ok) {
       setIsLoading(false)
       setError(error)
+      return
     } 
     
     if (response.ok) {
