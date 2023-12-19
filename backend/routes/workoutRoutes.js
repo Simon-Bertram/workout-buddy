@@ -6,8 +6,12 @@ import {
   deleteWorkout,
   updateWorkout
 } from '../controllers/workoutController.js';
+import requireAuth from '../middleware/requireAuth.js';
 
 const router = express.Router();
+
+// Require the user to be logged in for all routes
+router.use(requireAuth);
 
 // Get all the workout documents
 // GET /
