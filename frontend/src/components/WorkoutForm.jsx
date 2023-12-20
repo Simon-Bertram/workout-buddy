@@ -25,11 +25,12 @@ const WorkoutForm = () => {
       method: 'POST',
       headers: { 
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${user.token}`
+        "Authorization": `Bearer ${user.token}`
       },
       body: JSON.stringify(workout)
     })
     const data = await response.json()
+    console.log(data)
 
     if (!response.ok) {
       setError(data.error)

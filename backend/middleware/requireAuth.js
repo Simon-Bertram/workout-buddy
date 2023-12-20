@@ -14,9 +14,15 @@ const requireAuth = async (req, res, next) => {
   const token = authorization.replace('Bearer ', '');
 
   try {
-    const {_id} = jwt.verify(token, process.env.JWT_SECRET) 
+    const { id } = jwt.verify(token, process.env.JWT_SECRET); 
+    console.log(`The user ID is: ${id}`);
+
+    if (!id) {
+      return res.status(401).json({ error: 'Invalid token. Please log in again.' });
+    }
     
-    req.user = await User.findById(_id, { _id: 1 });
+    req.user = await User.findById(id, { id: 1 });
+    console.log(`The user is: ${req.user}`);
     
     next();
     

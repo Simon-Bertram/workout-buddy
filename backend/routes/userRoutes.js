@@ -4,7 +4,6 @@ import {
   registerUser,
   getUserProfile,
 } from '../controllers/userController.js'
-import { get } from "mongoose";
 
 const router = express.Router();
 
